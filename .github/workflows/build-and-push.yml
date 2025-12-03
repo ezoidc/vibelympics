@@ -28,7 +28,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./round_1
-          file: Dockerfile
           push: true
           tags: |
             ghcr.io/${{ github.repository }}:${{ github.sha }}
