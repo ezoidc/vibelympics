@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>🧠🎴⚡️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              midnight: '#05060a'
+            },
+            animation: {
+              pulseGlow: 'pulseGlow 3s ease-in-out infinite'
+            },
+            keyframes: {
+              pulseGlow: {
+                '0%, 100%': { opacity: 0.6 },
+                '50%': { opacity: 1 }
+              }
+            }
+          }
+        }
+      };
+    </script>
+    <style>
+      html {
+        background-color: #05060a;
+      }
+      body {
+        background-attachment: fixed;
+        background-color: #05060a;
+      }
+      @supports (-webkit-backdrop-filter: blur(0)) {
+        body {
+          background-color: rgba(5, 6, 10, 0.95);
+        }
+      }
+      .demo-card {
+        perspective: 1000px;
+        aspect-ratio: 1 / 1;
+      }
+      .demo-inner {
+        transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-style: preserve-3d;
+      }
+      .demo-card[data-state="flip"] .demo-inner {
+        transform: rotateY(180deg);
+      }
+      .demo-face {
+        backface-visibility: hidden;
+      }
+      .demo-back {
+        transform: rotateY(180deg);
+      }
+      .demo-card[data-match="true"] .demo-inner {
+        transform: rotateY(180deg) scale(1.05);
+        box-shadow: 0 0 30px rgba(248, 113, 113, 0.4);
+      }
+      .demo-card[data-feedback="good"] {
+        border-color: rgba(74, 222, 128, 0.8);
+        box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
+      }
+      .demo-card[data-feedback="bad"] {
+        border-color: rgba(248, 113, 113, 0.8);
+        box-shadow: 0 0 25px rgba(248, 113, 113, 0.4);
+        animation: demoShake 0.6s ease;
+      }
+      @keyframes demoShake {
+        0% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        50% {
+          transform: translateX(5px);
+        }
+        75% {
+          transform: translateX(-4px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-black via-slate-900 to-purple-950 text-slate-100">
+    <main class="mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center gap-12 px-6 py-16 text-center">
+      <div class="flex flex-col items-center gap-6">
+        <div class="text-7xl sm:text-8xl" aria-label="Emoji memory mayhem">🧠🎴⚡️</div>
+        <div class="text-5xl" aria-label="Tap twin tiles, race the clock, celebrate big">🧠🫱🆚🫲 ✨ ⏱️ 💥🥳</div>
+        <div class="text-4xl" aria-label="Match vibes then dive into the arena">🎯🎯 ➡️ 🎮🔥</div>
+      </div>
+      <section class="w-full max-w-3xl rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-fuchsia-500/10">
+        <div class="grid grid-cols-3 gap-6" id="demo-grid" aria-label="Mini demo">
+          <button class="demo-card aspect-square rounded-2xl border border-white/5 bg-gradient-to-br from-fuchsia-500/30 to-cyan-500/30 p-1" data-symbol="🍉">
+            <div class="demo-inner relative flex h-full w-full items-center justify-center rounded-2xl bg-black/50 text-5xl">
+              <span class="demo-face demo-front absolute inset-0 flex items-center justify-center">❔</span>
+              <span class="demo-face demo-back absolute inset-0 flex items-center justify-center">🍉</span>
+            </div>
+          </button>
+          <button class="demo-card aspect-square rounded-2xl border border-white/5 bg-gradient-to-br from-fuchsia-500/30 to-cyan-500/30 p-1" data-symbol="🍋">
+            <div class="demo-inner relative flex h-full w-full items-center justify-center rounded-2xl bg-black/50 text-5xl">
+              <span class="demo-face demo-front absolute inset-0 flex items-center justify-center">❔</span>
+              <span class="demo-face demo-back absolute inset-0 flex items-center justify-center">🍋</span>
+            </div>
+          </button>
+          <button class="demo-card aspect-square rounded-2xl border border-white/5 bg-gradient-to-br from-fuchsia-500/30 to-cyan-500/30 p-1" data-symbol="🍇">
+            <div class="demo-inner relative flex h-full w-full items-center justify-center rounded-2xl bg-black/50 text-5xl">
+              <span class="demo-face demo-front absolute inset-0 flex items-center justify-center">❔</span>
+              <span class="demo-face demo-back absolute inset-0 flex items-center justify-center">🍇</span>
+            </div>
+          </button>
+          <button class="demo-card aspect-square rounded-2xl border border-white/5 bg-gradient-to-br from-fuchsia-500/30 to-cyan-500/30 p-1" data-symbol="🍉">
+            <div class="demo-inner relative flex h-full w-full items-center justify-center rounded-2xl bg-black/50 text-5xl">
+              <span class="demo-face demo-front absolute inset-0 flex items-center justify-center">❔</span>
+              <span class="demo-face demo-back absolute inset-0 flex items-center justify-center">🍉</span>
+            </div>
+          </button>
+          <button class="demo-card aspect-square rounded-2xl border border-white/5 bg-gradient-to-br from-fuchsia-500/30 to-cyan-500/30 p-1" data-symbol="🍋">
+            <div class="demo-inner relative flex h-full w-full items-center justify-center rounded-2xl bg-black/50 text-5xl">
+              <span class="demo-face demo-front absolute inset-0 flex items-center justify-center">❔</span>
+              <span class="demo-face demo-back absolute inset-0 flex items-center justify-center">🍋</span>
+            </div>
+          </button>
+          <button class="demo-card aspect-square rounded-2xl border border-white/5 bg-gradient-to-br from-fuchsia-500/30 to-cyan-500/30 p-1" data-symbol="🍇">
+            <div class="demo-inner relative flex h-full w-full items-center justify-center rounded-2xl bg-black/50 text-5xl">
+              <span class="demo-face demo-front absolute inset-0 flex items-center justify-center">❔</span>
+              <span class="demo-face demo-back absolute inset-0 flex items-center justify-center">🍇</span>
+            </div>
+          </button>
+        </div>
+      </section>
+      <a href="./game.html" class="rounded-full border border-fuchsia-500/80 bg-gradient-to-r from-fuchsia-600/80 to-purple-700/80 px-10 py-4 text-5xl shadow-lg shadow-fuchsia-500/30 transition hover:scale-105" title="Play now">🚀🎮</a>
+    </main>
+    <script type="module" src="./assets/landing.js"></script>
+  </body>
+</html>

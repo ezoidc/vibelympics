@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>🎴🔥🎴</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              obsidian: '#050505'
+            }
+          }
+        }
+      };
+    </script>
+    <style>
+      html {
+        background-color: #05060a;
+      }
+      body {
+        background-attachment: fixed;
+        background-color: #05060a;
+      }
+      @supports (-webkit-backdrop-filter: blur(0)) {
+        body {
+          background-color: rgba(5, 6, 10, 0.95);
+        }
+      }
+      .board-grid {
+        grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr));
+      }
+      .card-shell {
+        perspective: 1200px;
+        position: relative;
+        display: block;
+      }
+      .card-shell::before {
+        content: '';
+        display: block;
+        padding-bottom: 100%;
+      }
+      .card-face {
+        backface-visibility: hidden;
+      }
+      .card-core {
+        transform-style: preserve-3d;
+        transition: transform 0.65s cubic-bezier(0.65, 0, 0.35, 1);
+      }
+      .card-shell[data-state="flipped"] .card-core,
+      .card-shell[data-state="matched"] .card-core {
+        transform: rotateY(180deg);
+      }
+      .card-shell[data-state="matched"] {
+        border-color: rgba(74, 222, 128, 0.7);
+        box-shadow: 0 0 25px rgba(74, 222, 128, 0.4);
+      }
+      .card-shell[data-feedback="good"] {
+        border-color: rgba(74, 222, 128, 0.9);
+        box-shadow: 0 0 35px rgba(74, 222, 128, 0.55);
+      }
+      .card-shell[data-feedback="bad"] {
+        border-color: rgba(248, 113, 113, 0.9);
+        box-shadow: 0 0 30px rgba(248, 113, 113, 0.4);
+        animation: cardShake 0.5s ease;
+      }
+      .difficulty-pill[data-active="true"] {
+        box-shadow: 0 0 30px rgba(248, 113, 113, 0.35);
+        transform: scale(1.12);
+      }
+      .victory-pop span {
+        position: absolute;
+        animation: burst 2.2s ease-out forwards;
+        filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+      }
+      .board-shell {
+        width: min(92vw, 48rem);
+        margin: 0 auto;
+      }
+      @keyframes cardShake {
+        0% {
+          transform: rotateY(0deg) translate3d(0, 0, 0);
+        }
+        25% {
+          transform: rotateY(0deg) translate3d(-6px, 0, 0);
+        }
+        50% {
+          transform: rotateY(0deg) translate3d(6px, 0, 0);
+        }
+        75% {
+          transform: rotateY(0deg) translate3d(-4px, 0, 0);
+        }
+        100% {
+          transform: rotateY(0deg) translate3d(0, 0, 0);
+        }
+      }
+      @keyframes burst {
+        0% {
+          transform: translate3d(0, 0, 0) scale(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translate3d(var(--x), var(--y), 0) scale(1.6) rotate(20deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="h-full bg-gradient-to-br from-black via-slate-900 to-purple-950 text-white">
+    <main class="mx-auto flex h-full w-full max-w-4xl flex-col gap-6 px-4 py-6 sm:px-6">
+      <header class="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-white/10 bg-white/5 px-6 py-4 shadow-xl shadow-fuchsia-500/5">
+        <a href="./index.html" class="text-4xl transition hover:scale-110" title="Back to landing">⏮️</a>
+        <div class="flex items-center gap-3 text-3xl" aria-label="Difficulty picker">
+          <button class="difficulty-pill rounded-full border border-white/20 bg-gradient-to-r from-yellow-300/40 via-amber-200/30 to-orange-200/30 px-4 py-2 transition hover:scale-105" data-level="chill" title="Easy mode">🙂</button>
+          <button class="difficulty-pill rounded-full border border-white/20 bg-gradient-to-r from-orange-400/40 via-amber-500/40 to-rose-400/30 px-4 py-2 transition hover:scale-105" data-level="zest" title="Medium mode">🥶</button>
+          <button class="difficulty-pill rounded-full border border-white/20 bg-gradient-to-r from-rose-600/40 via-red-600/40 to-fuchsia-600/30 px-4 py-2 transition hover:scale-105" data-level="inferno" title="Hard mode">💀</button>
+        </div>
+        <button id="reset-btn" class="text-4xl transition hover:scale-110" title="Restart">🔁</button>
+      </header>
+      <section class="grid gap-3 rounded-3xl border border-white/10 bg-white/5 p-3 text-xl sm:grid-cols-3 sm:text-2xl" aria-label="Stats">
+        <div id="timer" class="flex items-center justify-center rounded-2xl bg-black/30 py-3 text-3xl" aria-live="polite">⏱️0️⃣0️⃣🟰0️⃣0️⃣</div>
+        <div id="moves" class="flex items-center justify-center rounded-2xl bg-black/30 py-3" aria-live="polite">🔄0️⃣0️⃣ 🎯0️⃣0️⃣</div>
+        <div id="best" class="flex items-center justify-center rounded-2xl bg-black/30 py-3" aria-live="polite">🏆⏱️0️⃣0️⃣🟰0️⃣0️⃣</div>
+      </section>
+      <section class="rounded-3xl border border-white/10 bg-black/40 p-3">
+        <div class="board-shell">
+          <div id="board" class="board-grid grid gap-3 p-1" aria-label="Game grid"></div>
+        </div>
+      </section>
+      <div id="victory-layer" class="pointer-events-none fixed inset-0 z-20">
+        <div class="victory-pop pointer-events-none absolute inset-0" aria-hidden="true"></div>
+      </div>
+    </main>
+    <script type="module" src="./assets/game.js"></script>
+  </body>
+</html>
